@@ -1,0 +1,45 @@
+row_id,design,fit,fit_benchmarks,eval,set,eval_rows,estimator,n_rows,n_queries,n_pos,pos_rate,ece,ece_lo,ece_hi,brier,brier_lo,brier_hi,note
+0,within_lake,own_5fold,freyja_bm,freyja_bm,PRIMARY,all,isotonic,500,50.0,459.0,0.918,0.03418426472872901,0.021986597682324423,0.06836735097430326,0.059479165026325984,0.03389023565343105,0.08887535055168898,
+1,within_lake,own_5fold,freyja_bm,freyja_bm,PRIMARY,all,features,500,50.0,459.0,0.918,0.028093970331068703,0.008675421458322936,0.06782957998376772,0.040831284397858214,0.014877409613084381,0.07132733996509212,
+2,within_lake,own_5fold,freyja_bm,freyja_bm,PRIMARY,heldout_rows,isotonic,180,44.0,140.0,0.7777777777777778,0.09968945536076618,0.05578169883454623,0.1853744874892485,0.1370365312552454,0.07838639735754142,0.21164856808299606,
+3,within_lake,own_5fold,freyja_bm,freyja_bm,PRIMARY,heldout_rows,features,180,44.0,140.0,0.7777777777777778,0.04317373591204865,0.016293251118756312,0.09801860830081348,0.0652592995213822,0.031151708904358096,0.11153614206195461,
+4,leave_one_out,all,,freyja_bm,PRIMARY,all,raw,0,,,,,,,,,,no fitting data
+5,leave_one_out,all,,freyja_bm,PRIMARY,all,isotonic,0,,,,,,,,,,no fitting data
+6,leave_one_out,all,,freyja_bm,PRIMARY,all,features,0,,,,,,,,,,no fitting data
+7,leave_one_out,all,,freyja_bm,PRIMARY,heldout_rows,raw,0,,,,,,,,,,no fitting data
+8,leave_one_out,all,,freyja_bm,PRIMARY,heldout_rows,isotonic,0,,,,,,,,,,no fitting data
+9,leave_one_out,all,,freyja_bm,PRIMARY,heldout_rows,features,0,,,,,,,,,,no fitting data
+10,leave_one_out,no_freyja_bm,,freyja_bm,PRIMARY,all,raw,0,,,,,,,,,,no fitting data
+11,leave_one_out,no_freyja_bm,,freyja_bm,PRIMARY,all,isotonic,0,,,,,,,,,,no fitting data
+12,leave_one_out,no_freyja_bm,,freyja_bm,PRIMARY,all,features,0,,,,,,,,,,no fitting data
+13,leave_one_out,no_freyja_bm,,freyja_bm,PRIMARY,heldout_rows,raw,0,,,,,,,,,,no fitting data
+14,leave_one_out,no_freyja_bm,,freyja_bm,PRIMARY,heldout_rows,isotonic,0,,,,,,,,,,no fitting data
+15,leave_one_out,no_freyja_bm,,freyja_bm,PRIMARY,heldout_rows,features,0,,,,,,,,,,no fitting data
+16,leave_one_out,no_shared_origin,,freyja_bm,PRIMARY,all,raw,0,,,,,,,,,,no fitting data
+17,leave_one_out,no_shared_origin,,freyja_bm,PRIMARY,all,isotonic,0,,,,,,,,,,no fitting data
+18,leave_one_out,no_shared_origin,,freyja_bm,PRIMARY,all,features,0,,,,,,,,,,no fitting data
+19,leave_one_out,no_shared_origin,,freyja_bm,PRIMARY,heldout_rows,raw,0,,,,,,,,,,no fitting data
+20,leave_one_out,no_shared_origin,,freyja_bm,PRIMARY,heldout_rows,isotonic,0,,,,,,,,,,no fitting data
+21,leave_one_out,no_shared_origin,,freyja_bm,PRIMARY,heldout_rows,features,0,,,,,,,,,,no fitting data
+22,within_lake,own_5fold,freyja_bm,freyja_bm,SECONDARY,all,isotonic,33950,50.0,1478.0,0.04353460972017673,0.0025642750834831106,0.0026572404967907365,0.006891529690609211,0.01553012162640724,0.012488561305968279,0.018599321833868,
+23,within_lake,own_5fold,freyja_bm,freyja_bm,SECONDARY,all,features,33950,50.0,1478.0,0.04353460972017673,0.002481527038656754,0.0012660600019500697,0.007224198975069835,0.0048868864658525,0.0020106510556174313,0.00831000978524882,
+24,within_lake,own_5fold,freyja_bm,freyja_bm,SECONDARY,heldout_rows,isotonic,30170,50.0,468.0,0.015512098110706,0.00876248113012422,0.0070512406487718265,0.011263359949098608,0.007700947560393722,0.005831815575627552,0.00974931504588758,
+25,within_lake,own_5fold,freyja_bm,freyja_bm,SECONDARY,heldout_rows,features,30170,50.0,468.0,0.015512098110706,0.0046518658504808115,0.0018389787463251276,0.00919426392309601,0.0025422862522104838,0.0008508073839036523,0.0052800952802878895,
+26,leave_one_out,all,,freyja_bm,SECONDARY,all,raw,0,,,,,,,,,,no fitting data
+27,leave_one_out,all,,freyja_bm,SECONDARY,all,isotonic,0,,,,,,,,,,no fitting data
+28,leave_one_out,all,,freyja_bm,SECONDARY,all,features,0,,,,,,,,,,no fitting data
+29,leave_one_out,all,,freyja_bm,SECONDARY,heldout_rows,raw,0,,,,,,,,,,no fitting data
+30,leave_one_out,all,,freyja_bm,SECONDARY,heldout_rows,isotonic,0,,,,,,,,,,no fitting data
+31,leave_one_out,all,,freyja_bm,SECONDARY,heldout_rows,features,0,,,,,,,,,,no fitting data
+32,leave_one_out,no_freyja_bm,,freyja_bm,SECONDARY,all,raw,0,,,,,,,,,,no fitting data
+33,leave_one_out,no_freyja_bm,,freyja_bm,SECONDARY,all,isotonic,0,,,,,,,,,,no fitting data
+34,leave_one_out,no_freyja_bm,,freyja_bm,SECONDARY,all,features,0,,,,,,,,,,no fitting data
+35,leave_one_out,no_freyja_bm,,freyja_bm,SECONDARY,heldout_rows,raw,0,,,,,,,,,,no fitting data
+36,leave_one_out,no_freyja_bm,,freyja_bm,SECONDARY,heldout_rows,isotonic,0,,,,,,,,,,no fitting data
+37,leave_one_out,no_freyja_bm,,freyja_bm,SECONDARY,heldout_rows,features,0,,,,,,,,,,no fitting data
+38,leave_one_out,no_shared_origin,,freyja_bm,SECONDARY,all,raw,0,,,,,,,,,,no fitting data
+39,leave_one_out,no_shared_origin,,freyja_bm,SECONDARY,all,isotonic,0,,,,,,,,,,no fitting data
+40,leave_one_out,no_shared_origin,,freyja_bm,SECONDARY,all,features,0,,,,,,,,,,no fitting data
+41,leave_one_out,no_shared_origin,,freyja_bm,SECONDARY,heldout_rows,raw,0,,,,,,,,,,no fitting data
+42,leave_one_out,no_shared_origin,,freyja_bm,SECONDARY,heldout_rows,isotonic,0,,,,,,,,,,no fitting data
+43,leave_one_out,no_shared_origin,,freyja_bm,SECONDARY,heldout_rows,features,0,,,,,,,,,,no fitting data

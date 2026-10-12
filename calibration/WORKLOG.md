@@ -32,3 +32,9 @@ README will summarise it.
 - GT: duplicates and self-pairs removed for labels; TUS Big same-table pairs kept; name mismatches counted, not repaired.
 - precision@k: FREYJA code convention only, both published sources reported.
 - Added: stratified same/different-origin reading; FREYJA_BM "held-out rows" variant; leave-one-out pool without FREYJA_BM.
+
+## Progress
+
+- FREYJA_BM scored (33,950 candidate rows, 1,478 positives, 0 GT names missing, 13 PRIMARY boundary ties, 9 queries whose own column is not rank 1 because identical columns tie with it). precision@10 = 0.926 (published 0.924 in both sources).
+- FREYJA_BM vs filtered_data.pkl: raw profiles identical (max abs diff 0.0 on all 30 numeric features) on 595 common columns. 14 of its 609 columns are absent from ours: all date-like columns (`ModifiedDate`, `date`, `birthdate`, ...) that DuckDB 1.5.6 types as DATE/TIMESTAMP, so `varchar_only=true` skips them; the older profiling run read them as VARCHAR. Normalized values differ only because the two files normalize differently (filtered_data z-scores all 30 features over its 609 columns).
+- Downloads from Zenodo run at ~150-170 KB/s per connection; the four lakes were downloaded in parallel with resume.
