@@ -75,6 +75,17 @@ def main():
             name = BENCHMARKS[b]["name"] + (" (held-out rows)" if v == "heldout_rows" else "")
             out.append(f"| {name} | " + " | ".join(cells) + " |")
 
+    out.append("\nReading (c) of PREREGISTRATION.md §8 — benchmarks (FREYJA_BM on all rows) whose 95% interval of "
+               "ECE(c) − ECE(b), leave-one-out pool `all`, lies below 0 / contains 0 / lies above 0:\n")
+    for sset in ["PRIMARY", "SECONDARY"]:
+        x = pd_[(pd_.design == "leave_one_out") & (pd_.fit == "all") & (pd_.set == sset) & (pd_.eval_rows == "all")
+                & (pd_.contrast == "ece_features_minus_isotonic")]
+        below, above = x[x.hi < 0]["eval"].tolist(), x[x.lo > 0]["eval"].tolist()
+        contains = x[(x.lo <= 0) & (x.hi >= 0)]["eval"].tolist()
+        nm = lambda bs: ", ".join(BENCHMARKS[b]["name"] for b in bs) or "none"  # noqa: E731
+        out.append(f"- {sset}: below 0 ((c) better): {len(below)} ({nm(below)}); contains 0: {len(contains)} "
+                   f"({nm(contains)}); above 0 ((b) better): {len(above)} ({nm(above)})")
+
     out.append("\n### Summaries (median [min, max] of ECE)\n")
     out.append("| design | shared-origin variant | FREYJA_BM rows | set | (a) raw | (b) isotonic | (c) features |")
     out.append("|---|---|---|---|---|---|---|")
