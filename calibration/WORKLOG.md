@@ -24,3 +24,11 @@ README will summarise it.
 - TUS: the authors' Google Cloud links (`storage.googleapis.com/table-union-benchmark/...`) return HTTP 403 ("billing account ... absent"). Only third-party copies were found (Zenodo 15499092 / 15224451, Boutaleb et al.; Zenodo 15350355, a modified "Novel Table Search" TUS with 33/100 TUS Small queries).
 - D3L: no public copy of the lake found.
 - Wayback Machine check for the TUS files: HTTP 429 (rate-limited), not retried.
+
+## User decisions after the step-4 stop (2026-10-12)
+
+- Lakes approved: SANTOS Small, TUS Small, TUS Big (Boutaleb copy, Zenodo 15499092), OmniMatch CR and CG. D3L skipped (unavailable). SANTOS Big: profiling-time only, at the end, if time allows.
+- Analysis uses our own profiles for every lake, SANTOS Small included; santos_profiles.csv and filtered_data.pkl are comparison targets only. Step 6.1 dropped as a separate analysis.
+- GT: duplicates and self-pairs removed for labels; TUS Big same-table pairs kept; name mismatches counted, not repaired.
+- precision@k: FREYJA code convention only, both published sources reported.
+- Added: stratified same/different-origin reading; FREYJA_BM "held-out rows" variant; leave-one-out pool without FREYJA_BM.
