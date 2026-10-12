@@ -1,0 +1,3 @@
+benchmark,gt_tables,gt_tables_missing,gt_columns,gt_columns_not_in_header,gt_columns_in_header_not_profiled,not_profiled_types,queries,queries_table_present,queries_in_header,queries_profiled,gt_column_types
+tus_small,540,0,740,205,0,{},100,100,100,100,{'VARCHAR': 535}
+tus_big,3264,2,28084,8103,282,{'VARCHAR': 282},100,100,100,100,"{'VARCHAR': 19358, 'BOOLEAN': 623}"

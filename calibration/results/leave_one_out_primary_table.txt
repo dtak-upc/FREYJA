@@ -1,4 +1,5 @@
 Leave-one-out, PRIMARY, pool 'all': ECE [95% CI]; within-lake reference last
 held-out                     (a) raw                  (b) isotonic             (c) features             within (b)               within (c)              
-FREYJA_BM                    n/a                      n/a                      n/a                      0.034 [0.022, 0.068]     0.028 [0.009, 0.068]    
-FREYJA_BM (held-out rows)    n/a                      n/a                      n/a                      0.100 [0.056, 0.185]     0.043 [0.016, 0.098]    
+FREYJA_BM                    0.663 [0.566, 0.752]     0.085 [0.058, 0.116]     0.384 [0.282, 0.506]     0.034 [0.022, 0.068]     0.028 [0.009, 0.068]    
+FREYJA_BM (held-out rows)    0.541 [0.435, 0.671]     0.109 [0.077, 0.203]     0.408 [0.259, 0.552]     0.100 [0.056, 0.185]     0.043 [0.016, 0.098]    
+SANTOS Small                 0.573 [0.498, 0.646]     0.051 [0.031, 0.115]     0.092 [0.050, 0.165]     0.060 [0.040, 0.113]     0.015 [0.005, 0.032]    

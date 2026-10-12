@@ -105,7 +105,9 @@ def main(b):
             df["in_training"] = np.array([frozenset([q, (ds[i], at[i])]) in train for i in cand], dtype=np.int8)
         rows.append(df)
     pairs = pd.concat(rows, ignore_index=True)
-    pairs.to_csv(pairs_path(b), index=False, compression={"method": "gzip", "compresslevel": 6, "mtime": 0})
+    tmp = pairs_path(b).with_name("pairs.tmp.csv.gz")  # written then renamed, so readers never see a partial file
+    pairs.to_csv(tmp, index=False, compression={"method": "gzip", "compresslevel": 6, "mtime": 0})
+    tmp.rename(pairs_path(b))
 
     pk = np.array(list(p_at_k.values()))
     meta = {

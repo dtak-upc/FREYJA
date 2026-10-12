@@ -1,2 +1,3 @@
 benchmark,gt_rows,gt_rows_after_dedup,gt_self_pairs,gt_pairs,queries,queries_missing_from_lake,gt_pairs_naming_a_column_not_in_lake,of_which_query_missing,of_which_candidate_missing,distinct_gt_columns_not_in_lake,positives_in_lake,candidate_rows,profiled_columns,duplicate_profile_keys,nonfinite_feature_pairs,primary_boundary_ties,queries_whose_own_column_is_not_rank_1
 freyja_bm,1646,1528,50,1478,50,0,0,0,0,0,1478,33950,680,0,0,13,9
+santos_small,695,695,50,645,50,0,57,0,57,47,588,215000,4301,0,0,17,9
