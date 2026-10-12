@@ -64,7 +64,7 @@ def reliability(pairs):
             row = pairs[(pairs.design == "leave_one_out") & (pairs.fit == "all") & (pairs["eval"] == b)
                         & (pairs.set == "PRIMARY") & (pairs.eval_rows == "all") & (pairs.estimator == est)].iloc[0]
             ax.plot(r[:, 0], r[:, 1], color=st["color"], lw=1, zorder=2)
-            ax.scatter(r[:, 0], r[:, 1], s=8 + 40 * r[:, 2] / r[:, 2].max(), color=st["color"], marker=st["marker"],
+            ax.scatter(r[:, 0], r[:, 1], s=6 + 26 * r[:, 2] / r[:, 2].max(), color=st["color"], marker=st["marker"],
                        edgecolors="white", linewidths=0.5, zorder=3,
                        label=f"{st['label']}\nECE {row.ece:.3f} [{row.ece_lo:.3f}, {row.ece_hi:.3f}]")
         ax.set_xlim(-0.02, 1.02); ax.set_ylim(-0.02, 1.02)
@@ -96,7 +96,9 @@ def loo_ece(pairs):
     wr = w.set_index("eval").reindex(bs)
     ax.scatter(x, wr.ece, marker="D", s=16, facecolors="none", edgecolors=INK, linewidths=0.8, zorder=4,
                label="within-lake reference for (b)")
-    ax.set_xticks(x, [BENCHMARKS[b]["name"].replace(" ", "\n", 1) for b in bs])
+    short = {"freyja_bm": "FREYJA\nBM", "santos_small": "SANTOS\nSmall", "om_cr": "OmniM.\nCR",
+             "om_cg": "OmniM.\nCG", "tus_small": "TUS\nSmall", "tus_big": "TUS\nBig"}
+    ax.set_xticks(x, [short[b] for b in bs])
     ax.set_ylabel("ECE, top-k (leave-one-out)")
     ax.set_ylim(bottom=0); ax.grid(axis="y", color=GRID, lw=0.4); ax.set_axisbelow(True)
     ax.legend(loc="lower left", bbox_to_anchor=(0, 1.02), ncol=2, frameon=False, columnspacing=1, handletextpad=0.3)

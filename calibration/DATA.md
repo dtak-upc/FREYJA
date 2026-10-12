@@ -19,7 +19,7 @@ All CSVs are comma-separated with a header. Floats are written with Python's sho
 | `leave_one_out.csv`, `within_lake.csv` | the same rows as `pairs.csv`, filtered by design | as `pairs.csv` |
 | `leave_one_out_primary_table.txt` | – | the printed PRIMARY leave-one-out table (pool `all`), within-lake references last |
 | `paired_differences.csv` | leave-one-out or pairwise evaluation × contrast | `contrast` (`ece_features_minus_isotonic`, `ece_isotonic_minus_raw`), `diff` (point), `lo`, `hi` (percentiles of the paired replicate differences) |
-| `descriptives.csv` | benchmark × set × row variant | queries, rows, positives, positive rate, median score of true joins and of false candidates (raw model output), share of positives that are same-origin |
+| `descriptives.csv` | benchmark × set × row variant | queries, rows, positives, positive rate, median score of true joins and of false candidates (raw model output), share of positives that are same-origin, PRIMARY boundary ties (queries with a score tie between ranks k and k+1) |
 | `summary.csv` | design × shared-origin variant × FREYJA_BM row variant × set × estimator | `n` (benchmarks or ordered pairs summarized), median / min / max of ECE and Brier; `note` = `no unseen benchmark remains` when nothing is left |
 | `stratified.csv` | held-out benchmark × row variant × stratum × estimator (leave-one-out, pool `all`, PRIMARY) | `strat_row_id` (key into `replicates_stratified.csv.gz`), `stratum` (`same_origin` / `different_origin`), counts, ECE and Brier with intervals |
 | `precision_at_k.csv` | benchmark × k | `ours` (FREYJA's `evaluate_benchmark` convention), `published_models_ipynb` (notebook cell 56), `published_scores_txt` (mean over queries of other-assets `scores.txt`) |
@@ -28,6 +28,11 @@ All CSVs are comma-separated with a header. Floats are written with Python's sho
 | `profiling.csv` | lake | profiler flags, files, tables profiled / failed / with no profiled column, columns, lake bytes, wall time (s), DuckDB version |
 | `profile_comparison_freyja_bm.csv`, `profile_comparison_santos_small.csv` | profile feature | common columns, max absolute difference raw and normalized against the comparison target, count of equal values |
 | `diag_santos_gap.json` | – | diagnostic only: SANTOS Small precision@k when the query tables are profiled twice (as in santos_profiles.csv) |
+| `posthoc_tus_overlap.json` | – | POST-HOC: overlap between the TUS Small and TUS Big lakes (file names, identical bytes, profiled column keys, GT tables, queries) |
+| `posthoc_tus_sibling.csv` | held-out TUS benchmark × set × estimator | POST-HOC: leave-one-out with the sibling TUS lake also removed from the pool; same columns as `pairs.csv` plus `analysis` |
+| `posthoc_brier_skill.csv` | design × benchmark × row variant × estimator (PRIMARY) | POST-HOC: `brier_constant` = r(1−r) for the evaluated positive rate r, `skill` = 1 − brier / brier_constant, `skill_lo`, `skill_hi` (same bootstrap draws) |
+| `tables.md` | – | all report tables, generated from the files above by `scripts/report_tables.py` |
+| `b2_table.md` | benchmark | the NUMBERS_FOR_B2 table, generated |
 | `export_manifest.csv` | exported file | `path`, `bytes`, `sha256` |
 
 ## export/<benchmark>/

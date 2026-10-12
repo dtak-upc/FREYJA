@@ -1,0 +1,11 @@
+{
+ "tus_small_lake_files": 1526,
+ "tus_big_lake_files": 5045,
+ "same_file_name": 1516,
+ "same_name_and_identical_bytes": 620,
+ "tus_small_profiled_columns_also_in_tus_big_profiles": 12605,
+ "tus_small_profiled_columns": 12625,
+ "gt_tables_tus_small": 540,
+ "gt_tables_tus_small_also_in_tus_big_gt": 478,
+ "gt_queries_common": 0
+}

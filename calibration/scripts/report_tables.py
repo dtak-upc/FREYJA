@@ -133,6 +133,27 @@ def main():
     (R / "tables.md").write_text(txt)
     print(txt)
 
+    # Table for NUMBERS_FOR_B2.md
+    b2 = ["| benchmark | tables | columns | profiling (s) | positive rate in top-k | within-lake ECE (b) | "
+          "within-lake ECE (c) | leave-one-out ECE (a) | leave-one-out ECE (b) | leave-one-out ECE (c) |",
+          "|---|---|---|---|---|---|---|---|---|---|"]
+    for b in present:
+        for v in ["all", "heldout_rows"] if b == "freyja_bm" else ["all"]:
+            x = p[(p["eval"] == b) & (p.set == "PRIMARY") & (p.eval_rows == v)]
+            lo = x[(x.design == "leave_one_out") & (x.fit == "all")]
+            wl = x[x.design == "within_lake"]
+            dp = d[(d.benchmark == b) & (d.set == "PRIMARY") & (d.eval_rows == v)].iloc[0]
+            name = BENCHMARKS[b]["name"] + (" (held-out rows)" if v == "heldout_rows" else "")
+            pre = (f"{prof.loc[b, 'tables_profiled']} | {prof.loc[b, 'columns']} | {prof.loc[b, 'wall_time_s']:.1f}"
+                   if v == "all" else "″ | ″ | ″")
+            b2.append(f"| {name} | {pre} | {dp.pos_rate:.3f} | {cell(wl, estimator='isotonic')} | "
+                      f"{cell(wl, estimator='features')} | " + " | ".join(cell(lo, estimator=e) for e in
+                                                                           ["raw", "isotonic", "features"]) + " |")
+    if "santos_big" in prof.index:
+        b2.append(f"| SANTOS Big (profiling only, no labels) | {prof.loc['santos_big', 'tables_profiled']} | "
+                  f"{prof.loc['santos_big', 'columns']} | {prof.loc['santos_big', 'wall_time_s']:.1f} | – | – | – | – | – | – |")
+    (R / "b2_table.md").write_text("\n".join(b2) + "\n")
+
 
 if __name__ == "__main__":
     main()
