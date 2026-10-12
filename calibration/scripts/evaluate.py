@@ -75,7 +75,7 @@ def predict(models, e):
     return [raw.predict(e["s"]), iso.predict(e["s"]), feat.predict(e["X"])]
 
 
-ROWS, REPS, PAIRED = [], [], []
+ROWS, REPS, PAIRED, STRAT_REPS = [], [], [], []
 
 
 def record(design, fit_label, fit_bs, b, s, e, P, ests, fold=None, variant="all"):
@@ -155,7 +155,10 @@ def stratified(b, e, P):
             rep = calib.bootstrap([p[m] for p in P], y, qid)
             for j, est in enumerate(EST):
                 lo, hi = calib.interval(rep["ece"][j]); blo, bhi = calib.interval(rep["brier"][j])
-                out.append(dict(eval=b, eval_rows=variant, stratum=stratum, estimator=est, n_rows=int(m.sum()),
+                sid = len(STRAT_REPS)
+                STRAT_REPS.append(pd.DataFrame({"strat_row_id": sid, "replicate": np.arange(calib.N_BOOT),
+                                                "ece": rep["ece"][j], "brier": rep["brier"][j]}))
+                out.append(dict(strat_row_id=sid, eval=b, eval_rows=variant, stratum=stratum, estimator=est, n_rows=int(m.sum()),
                                 n_queries=int(len(np.unique(qid))), n_pos=int(y.sum()), pos_rate=float(y.mean()),
                                 ece=calib.ece(P[j][m], y), ece_lo=lo, ece_hi=hi,
                                 brier=calib.brier(P[j][m], y), brier_lo=blo, brier_hi=bhi))
@@ -293,6 +296,9 @@ def main():
     summarize(pairs).to_csv(RES / "summary.csv", index=False)
     pd.concat(REPS, ignore_index=True).to_csv(EVAL_DIR / "replicates.csv.gz", index=False,
                                               compression={"method": "gzip", "compresslevel": 6, "mtime": 0})
+    if STRAT_REPS:
+        pd.concat(STRAT_REPS, ignore_index=True).to_csv(EVAL_DIR / "replicates_stratified.csv.gz", index=False,
+                                                        compression={"method": "gzip", "compresslevel": 6, "mtime": 0})
     (EVAL_DIR / "run_meta.json").write_text(json.dumps({"benchmarks": present, "seconds": time.time() - t0}))
     print_loo_table(pairs)
     print(f"done in {time.time() - t0:.0f}s")
