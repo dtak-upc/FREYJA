@@ -76,10 +76,12 @@ def query_index(qid):
     return inv, len(uniq)
 
 
-def bootstrap(P, y, qid, n_boot=N_BOOT, seed=SEED):
+def bootstrap(P, y, qid, n_boot=N_BOOT, seed=SEED, which=None):
     """Replicates of ECE and Brier for each prediction vector in P (same resamples).
 
-    Returns dict with arrays ece[j, r], brier[j, r] and the draws used.
+    Returns dict with arrays ece[j, r], brier[j, r] and the draws used. `which`
+    (optional) lists the replicate indices to compute; the others are NaN. The
+    draws are always generated in full, so replicate r is the same either way.
     """
     y = np.asarray(y, dtype=float)
     qi, nq = query_index(qid)
@@ -92,7 +94,8 @@ def bootstrap(P, y, qid, n_boot=N_BOOT, seed=SEED):
         order = np.argsort(p, kind="stable")
         p_s, y_s, q_s = p[order], y[order], qi[order]
         sq_q = np.bincount(qi, weights=(p - y) ** 2, minlength=nq)
-        for r in range(n_boot):
+        E[j, :] = np.nan; B[j, :] = np.nan
+        for r in (range(n_boot) if which is None else which):
             cnt = np.bincount(draws[r], minlength=nq)
             E[j, r] = _ece_sorted(p_s, y_s, cnt[q_s])
             B[j, r] = np.dot(cnt, sq_q) / np.dot(cnt, nrows_q)

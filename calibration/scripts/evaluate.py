@@ -167,6 +167,7 @@ def stratified(b, e, P):
 
 def descriptives(data, b):
     out = []
+    ties = json.loads((SCRATCH / b / "score_meta.json").read_text())["primary_boundary_ties"]
     for s in SETS:
         e = data[b][s]
         variants = [("all", np.ones(len(e["y"]), bool))]
@@ -178,7 +179,8 @@ def descriptives(data, b):
                             rows=int(m.sum()), positives=int(y.sum()), pos_rate=float(y.mean()),
                             median_score_true=float(np.median(sc[y == 1])) if y.sum() else np.nan,
                             median_score_false=float(np.median(sc[y == 0])) if (y == 0).sum() else np.nan,
-                            same_origin_share_of_positives=float(e["same_origin"][m][y == 1].mean()) if y.sum() else np.nan))
+                            same_origin_share_of_positives=float(e["same_origin"][m][y == 1].mean()) if y.sum() else np.nan,
+                            primary_boundary_ties=ties if s == "PRIMARY" else np.nan))
     return out
 
 

@@ -71,6 +71,34 @@ def test_bootstrap_matches_naive_and_is_reproducible():
             assert abs(rep["brier"][j, r] - np.mean((pe - ye) ** 2)) < 1e-12
 
 
+def test_bootstrap_with_gapped_query_ids():
+    """Production passes query ids with gaps (held-out rows, strata): queries are
+    numbered in sorted order of their ids before drawing."""
+    rng = np.random.default_rng(4)
+    ids = np.array([3, 7, 8, 20, 21, 40])
+    qid = np.repeat(ids, rng.integers(1, 6, size=len(ids)))
+    y = (rng.random(len(qid)) < 0.4).astype(float)
+    p = rng.random(len(qid)).round(1)
+    rep = calib.bootstrap([p], y, qid, n_boot=40, seed=20261012)
+    dense = np.searchsorted(ids, qid)
+    draws = np.random.default_rng(20261012).integers(0, len(ids), size=(40, len(ids)))
+    for r in range(40):
+        pe, ye = naive_resample(p, y, dense, draws[r])
+        assert len(pe) == np.bincount(draws[r], minlength=len(ids))[dense].sum()
+        assert abs(rep["ece"][0, r] - naive_ece(pe, ye)) < 1e-12
+        assert abs(rep["brier"][0, r] - np.mean((pe - ye) ** 2)) < 1e-12
+
+
+def test_bootstrap_subset_equals_full():
+    rng = np.random.default_rng(5)
+    qid = np.repeat(np.arange(9), 3)
+    y = (rng.random(27) < 0.5).astype(float); p = rng.random(27)
+    full = calib.bootstrap([p], y, qid, n_boot=30)
+    sub = calib.bootstrap([p], y, qid, n_boot=30, which=[0, 7, 29])
+    assert np.array_equal(full["ece"][0, [0, 7, 29]], sub["ece"][0, [0, 7, 29]])
+    assert np.isnan(sub["ece"][0, 1])
+
+
 def test_raw_estimator():
     est = calib.RawMinMax().fit(np.array([1.0, 3.0]))
     assert np.allclose(est.predict(np.array([0.0, 1.0, 2.0, 3.0, 4.0])), [0, 0, 0.5, 1, 1])
